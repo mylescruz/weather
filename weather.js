@@ -1,4 +1,4 @@
-const URL = "http://api.weatherapi.com/v1";
+const URL = "https://api.weatherapi.com/v1";
 const apiKey = "key=c92183db87384d8d806184544242907";
 const current = "/current.json";
 const queryParam = "q=";
