@@ -7,16 +7,16 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>Weather App</h1>
+        <div class="container">
+            <div class="header">
+                <input type="text" placeholder="Enter a city" id="city-search">
+                <button id="search">&#128269;</button>
+            </div>
 
-        <div class="header">
-            <input type="text" placeholder="Enter a city" id="city-search">
-            <button id="get">&#128269;</button>
-        </div>
-
-        <div class="details">
-            <h3 id="city"></h3>
-            <p class="temperature" id="fahrenheit"></p>
+            <div class="details">
+                <p id="city"></p>
+                <p class="temperature" id="fahrenheit"></p>
+            </div>
         </div>
 
         <script src="weather.js"></script>

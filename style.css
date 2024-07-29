@@ -1,0 +1,70 @@
+:root {
+    --color-background: rgb(63, 25, 233);
+    --color-white-shadow: rgba(255, 255, 255, 0.8);
+    --color-black-shadow: rgba(0, 0, 0, 0.8);
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.container {
+    width: 300px;
+    height: 400px;
+    padding: 10px;
+    background-color: var(--color-background);
+    border-radius: 5%;
+    box-shadow: 2px 2px 5px var(--color-black-shadow);
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.header {
+    display: inherit;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#city-search {
+    appearance: none;
+    margin: 0px 5px;
+    border: none;
+    width: 75%;
+    box-shadow: 1px 1px 5px var(--color-white-shadow);
+}
+
+#search {
+    appearance: none;
+    border: none;
+    background-color: white;
+    border-radius: 5%;
+    box-shadow: 1px 1px 5px var(--color-white-shadow);
+}
+
+.details {
+    text-align: center;
+}
+
+#city {
+    padding: 0;
+    margin: 25px 0px 0px;
+    font-size: 25px;
+}
+
+.temperature {
+    padding: 0;
+    margin: 5px 0px 5px;
+    font-size: 50px;
+}
+
+
+
