@@ -32,4 +32,12 @@ function getCurrentTemp() {
     req.send();
 }
 
-document.getElementById('get').addEventListener('click', getCurrentTemp);
+window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('get').addEventListener('click', getCurrentTemp);
+
+    window.addEventListener('keydown', event => {
+        if (event.code === 'Enter') {
+            getCurrentTemp();
+        }
+    })
+});
