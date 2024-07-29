@@ -4,9 +4,16 @@ const current = "/current.json";
 const queryParam = "q=";
 let apiCall = URL+current+"?"+apiKey+"&"+queryParam;
 
-const city = 'Los Angeles';
+function setTemp(response) {
+    let cityName = document.getElementById('city');
+    let tempF = document.getElementById('fahrenheit');
+
+    cityName.innerHTML = response.location.name;
+    tempF.innerHTML = response.current.temp_f  + "ºF";
+}
 
 function getCurrentTemp() {
+    let city = document.getElementById('city-search').value;
 
     let req = new XMLHttpRequest();
     req.onreadystatechange = function() {
@@ -15,6 +22,8 @@ function getCurrentTemp() {
 
             console.log(response.location.name);
             console.log(response.current.temp_f + "ºF");
+
+            setTemp(response)
         }
     };
 
