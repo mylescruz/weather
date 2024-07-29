@@ -51,6 +51,9 @@ body {
 }
 
 .details {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
 }
 
@@ -66,5 +69,22 @@ body {
     font-size: 50px;
 }
 
+.icon {
+    height: 75px;
+    width: 75px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    padding: 0;
+    transition: transform 3s;
+}
+
+.icon:hover {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
 
 

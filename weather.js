@@ -5,11 +5,15 @@ const queryParam = "q=";
 let apiCall = URL+current+"?"+apiKey+"&"+queryParam;
 
 function setTemp(response) {
+    let details = document.querySelector('.details');
     let cityName = document.getElementById('city');
     let tempF = document.getElementById('fahrenheit');
+    let icon = document.querySelector('.icon');
 
     cityName.innerHTML = response.location.name;
     tempF.innerHTML = response.current.temp_f  + "ºF";
+    icon.src = response.current.condition.icon;
+    details.style.display = "flex";
 }
 
 function getCurrentTemp() {
@@ -22,8 +26,9 @@ function getCurrentTemp() {
 
             console.log(response.location.name);
             console.log(response.current.temp_f + "ºF");
+            console.log(response.current.condition.icon);
 
-            setTemp(response)
+            setTemp(response);
         }
     };
 
