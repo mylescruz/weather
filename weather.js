@@ -5,6 +5,7 @@ const CURRENT = "/current.json";
 const FORECAST = "/forecast.json";
 const QUERY_PARAM = "q=";
 const DAYS_PARAM = "days=";
+const NIGHT_TIME = 19;
 
 function setCurrentTemp(response) {
     let tempF = document.getElementById('fahrenheit');
@@ -12,8 +13,8 @@ function setCurrentTemp(response) {
 
     let currentDate = Date.now();
     let currentTime = new Date(currentDate);
-    let hours = currentTime.getHours();
-    if (hours > 19) {
+    let currentHour = currentTime.getHours();
+    if (currentHour > NIGHT_TIME) {
         let container = document.querySelector('.container');
         container.style.cssText = "background-color: rgb(22, 22, 53)";
     }
@@ -62,6 +63,7 @@ function setTodaysForecast(response) {
 
 function changeSearchDisplay() {
     let city = document.getElementById('search');
+    
     city.value = "";
     city.placeholder = '\u{1F50D}';
     city.style.cssText = `
@@ -77,6 +79,26 @@ function changeSearchDisplay() {
         -ms-transform: translateX(125px);
         position: absolute;
     `;
+}
+
+function displaySearch() {
+    let city = document.getElementById('search');
+
+    if (city.style.width === "20px") {
+        city.style.cssText = `
+            width: 100%;
+            -webkit-transition: transform 2s;
+            -moz-transition: transform 2s;
+            -o-transition: transform 2s;
+            -ms-transition: transform 2s;
+            transition: transform 2s;
+            -webkit-transform: translateX(0px);
+            -moz-transform: translateX(0px);
+            -o-transform: translateX(0px);
+            -ms-transform: translateX(0px);
+            position: relative;
+        `;
+    }
 }
 
 function getCity() {
@@ -97,6 +119,7 @@ function getCity() {
             setHighLow(response.forecast.forecastday[0].day);
             setTodaysForecast(response.forecast.forecastday[0].hour);
             
+            changeSearchDisplay();
         }
     };
 
@@ -111,7 +134,8 @@ window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('keydown', event => {
         if (event.code === 'Enter') {
             getCity();
-            changeSearchDisplay();
         }
-    })
+
+        document.getElementById('search').addEventListener('focus', displaySearch);
+    });
 });
