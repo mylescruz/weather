@@ -29,8 +29,7 @@ function setHighLow(response) {
 
 function setTodaysForecast(response) {
     let todayForecast = document.querySelector('.today-forecast');
-    let hoursBox = document.querySelector('.hours');
-    todayForecast.style.display = "flex";
+    todayForecast.style.cssText = "display: flex";
 
     let hourlyTemp = new Array(24);
     for (let i = 0; i < 24; i++) {
@@ -42,11 +41,23 @@ function setTodaysForecast(response) {
     let currentTime = new Date(currentDate);
     let hours = currentTime.getHours();
     
+    let hourlyHeader = document.querySelector('.hourly-headers');
+    let hourlyBody = document.querySelector('.hourly-bodys');
+
     for (let i = hours; i < 24; i++) {
-        hoursBox.innerHTML += hourlyTemp[i];
+        let hour = document.createElement('th');
+        let temp = document.createElement('td');
+
+        if (i >= 12) {
+            hour.innerHTML = (i + 1 - 12);
+        } else {
+            hour.innerHTML = (i + 1);
+        }
+
+        temp.innerHTML = hourlyTemp[i];
+        hourlyHeader.appendChild(hour);
+        hourlyBody.appendChild(temp);
     }
-    
-    todayForecast.appendChild(hoursBox);
 }
 
 function changeSearchDisplay() {
