@@ -1,5 +1,5 @@
 :root {
-    --color-background: rgb(63, 25, 233);
+    --color-background: rgb(70, 153, 216);
     --color-white-shadow: rgba(255, 255, 255, 0.8);
     --color-black-shadow: rgba(0, 0, 0, 0.8);
 }
@@ -21,7 +21,7 @@ body {
     height: 400px;
     padding: 10px;
     background-color: var(--color-background);
-    border-radius: 5%;
+    border-radius: 35px;
     box-shadow: 2px 2px 5px var(--color-black-shadow);
     display: flex;
     flex-direction: column;
@@ -34,24 +34,18 @@ body {
     margin-top: 10px;
 }
 
-#city-search {
-    appearance: none;
-    margin: 0px 5px;
-    border: none;
-    width: 75%;
-    box-shadow: 1px 1px 5px var(--color-white-shadow);
-}
-
 #search {
     appearance: none;
+    margin: 0px 20px;
+    padding: 5px 10px;
     border: none;
-    background-color: white;
-    border-radius: 5%;
+    border-radius: 25px;
+    width: 100%;
     box-shadow: 1px 1px 5px var(--color-white-shadow);
 }
 
 .details {
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
@@ -64,27 +58,14 @@ body {
 }
 
 .temperature {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     padding: 0;
     margin: 5px 0px 5px;
     font-size: 50px;
 }
 
-.icon {
-    height: 75px;
-    width: 75px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
+.today {
     padding: 0;
-    transition: transform 3s;
+    margin: 0;
+    text-align: center;
 }
-
-.icon:hover {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg);
-}
-
-
