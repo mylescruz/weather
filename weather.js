@@ -6,6 +6,7 @@ const CURRENT = "/current.json";
 const FORECAST = "/forecast.json";
 const QUERY_PARAM = "q=";
 const DAYS_PARAM = "days=";
+const DAYS = 8;
 const DAWN_TIME = 7;
 const NIGHT_TIME = 19;
 let currentDate = '';
@@ -44,7 +45,7 @@ function setHourlyForecast(response) {
         let hourlyContainer = document.createElement('div');
         hourlyContainer.classList.add('hour');
         let hour = document.createElement('p');
-        hour.classList.add('hourly-hour');
+        hour.classList.add('forecast-hour');
         let temp = document.createElement('p');
         temp.classList.add('hourly-temp');
 
@@ -63,6 +64,41 @@ function setHourlyForecast(response) {
         hourlyContainer.append(temp);
         hourlyForecast.appendChild(hourlyContainer);
     }
+}
+
+function setDailyMaxMin(temps, date, forecastMap) {
+    let dailyForecast = document.querySelector('.daily-forecast');
+
+    let dailyContainer = document.createElement('div');
+    dailyContainer.classList.add('day');
+    let dateContainer = document.createElement('p');
+    dateContainer.classList.add('forecast-date');
+    let tempContainer = document.createElement('p');
+    tempContainer.classList.add('daily-temps');
+
+    let day = new Date(date);
+    dateContainer.innerHTML = day.toLocaleDateString("en-US", {weekday: 'short'});
+    tempContainer.innerHTML = "H: " + Math.round(parseFloat(temps.max)) + "º | L: " + Math.round(parseFloat(temps.min)) + "º";
+
+    dailyContainer.appendChild(dateContainer);
+    dailyContainer.appendChild(tempContainer);
+    dailyForecast.appendChild(dailyContainer);
+}
+
+function setDailyForecast(response) {
+    let forecastMap = new Map();
+
+    for (i = 1; i < DAYS; i++) {
+        forecastMap.set(response[i].date, {
+            max: response[i].day.maxtemp_f, 
+            min: response[i].day.mintemp_f
+        });
+    }
+
+    forecastMap.forEach(setDailyMaxMin);
+
+    let dailyForecast = document.querySelector('.daily-forecast');
+    dailyForecast.style.display = "flex";
 }
 
 function moveSearchBar() {
@@ -125,12 +161,12 @@ function getCity() {
             setCurrentTemp(response.current);
             setHighLow(response.forecast.forecastday[0].day);
             setHourlyForecast(response.forecast.forecastday[0].hour);
+            setDailyForecast(response.forecast.forecastday);
             moveSearchBar();
         }
     };
 
-    let days = 1;
-    let apiCall = URL+FORECAST+"?"+API_KEY+"&"+QUERY_PARAM+city+"&"+DAYS_PARAM+days;
+    let apiCall = URL+FORECAST+"?"+API_KEY+"&"+QUERY_PARAM+city+"&"+DAYS_PARAM+DAYS;
     console.log(apiCall);
     req.open("GET", apiCall);
     req.send();
