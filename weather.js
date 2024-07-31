@@ -1,3 +1,4 @@
+// Global Variables
 const URL = "https://api.weatherapi.com/v1";
 const KEY_FILE = './assets/key.txt';
 const API_KEY = "key=c92183db87384d8d806184544242907";
@@ -10,6 +11,7 @@ const NIGHT_TIME = 19;
 let currentDate = '';
 let currentHour = 0;
 
+// Functions to display details
 function setCurrentTemp(response) {
     let tempF = document.getElementById('fahrenheit');
     tempF.innerHTML = Math.round(parseFloat(response.temp_f))  + "º";
@@ -34,43 +36,48 @@ function setHighLow(response) {
     today.innerHTML = "H: " + max + "º | L: " + min + "º";
 }
 
-function setTodaysForecast(response) {
-    let todayForecast = document.querySelector('.today-forecast');
-    todayForecast.style.cssText = "display: flex";
-    
-    let hourlyHeader = document.querySelector('.hourly-headers');
-    let hourlyBody = document.querySelector('.hourly-bodys');
+function setHourlyForecast(response) {
+    let hourlyForecast = document.querySelector('.hourly-forecast');
+    hourlyForecast.style.display = "flex";
 
-    console.log("Local current hour: ", currentHour);
     for (let i = currentHour; i < 24; i++) {
-        let hour = document.createElement('th');
-        hour.classList.add('forecast-hour');
-        let temp = document.createElement('td');
-        temp.classList.add('forecast-temp');
+        let hourlyContainer = document.createElement('div');
+        hourlyContainer.classList.add('hour');
+        let hour = document.createElement('p');
+        hour.classList.add('hourly-hour');
+        let temp = document.createElement('p');
+        temp.classList.add('hourly-temp');
+
         if (i >= 12) {
-            hour.innerHTML = (i + 1 - 12);
+            if ( i === 23) {
+                hour.innerHTML = (i + 1 - 12) + "am";
+            } else {
+                hour.innerHTML = (i + 1 - 12) + "pm";
+            }
         } else {
-            hour.innerHTML = (i + 1);
+            hour.innerHTML = (i + 1) + "am";
         }
 
-        temp.innerHTML = Math.round(parseFloat(response[i].temp_f));
-        hourlyHeader.appendChild(hour);
-        hourlyBody.appendChild(temp);
+        temp.innerHTML = Math.round(parseFloat(response[i].temp_f)) + "º";
+        hourlyContainer.append(hour);
+        hourlyContainer.append(temp);
+        hourlyForecast.appendChild(hourlyContainer);
     }
 }
 
-function changeSearchDisplay() {
+function moveSearchBar() {
     let city = document.getElementById('search');
     
     city.value = "";
+    city.blur();
     city.placeholder = '\u{1F50D}';
     city.style.cssText = `
         width: 20px;
-        -webkit-transition: transform 2s;
-        -moz-transition: transform 2s;
-        -o-transition: transform 2s;
-        -ms-transition: transform 2s;
-        transition: transform 2s;
+        -webkit-transition: transform 1.5s;
+        -moz-transition: transform 1.5s;
+        -o-transition: transform 1.5s;
+        -ms-transition: transform 1.5s;
+        transition: transform 1.5s;
         -webkit-transform: translateX(125px);
         -moz-transform: translateX(125px);
         -o-transform: translateX(125px);
@@ -85,11 +92,11 @@ function displaySearch() {
     if (city.style.width === "20px") {
         city.style.cssText = `
             width: 200px;
-            -webkit-transition: transform 2s;
-            -moz-transition: transform 2s;
-            -o-transition: transform 2s;
-            -ms-transition: transform 2s;
-            transition: transform 2s;
+            -webkit-transition: transform 1.5s;
+            -moz-transition: transform 1.5s;
+            -o-transition: transform 1.5s;
+            -ms-transition: transform 1.5s;
+            transition: transform 1.5s;
             -webkit-transform: translateX(0px);
             -moz-transform: translateX(0px);
             -o-transform: translateX(0px);
@@ -99,6 +106,7 @@ function displaySearch() {
     }
 }
 
+// Function to get city details from the Weather API
 function getCity() {
     let city = document.getElementById('search').value;
 
@@ -111,14 +119,13 @@ function getCity() {
             console.log(response.current.temp_f + "ºF");
 
             let cityName = document.getElementById('city');
-            cityName.innerHTML = response.location.name;
+            cityName.innerHTML = response.location.name.toUpperCase();
 
             setLocalTime(response.location.localtime);
             setCurrentTemp(response.current);
             setHighLow(response.forecast.forecastday[0].day);
-            setTodaysForecast(response.forecast.forecastday[0].hour);
-            
-            changeSearchDisplay();
+            setHourlyForecast(response.forecast.forecastday[0].hour);
+            moveSearchBar();
         }
     };
 
@@ -129,6 +136,7 @@ function getCity() {
     req.send();
 }
 
+// Handle app events
 window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('keydown', event => {
         if (event.code === 'Enter') {

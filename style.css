@@ -70,23 +70,41 @@ body {
     text-align: center;
 }
 
-.time {
-    padding: 0;
-    margin: 0;
-    text-align: center;
-}
-
-.today-forecast {
+.hourly-forecast {
     display: none;
+    flex-direction: row;
     background-color: white;
     color: var(--color-background-morning);
+    height: 50px;
     width: 80%;
-    margin: 10px;
+    margin: 20px 10px 10px;
     padding: 8px 10px;
     border-radius: 10px;
     align-items: center;
     max-width: 90%;
     overflow-x: scroll;
+}
+
+.hour {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hourly-hour, .hourly-temp {
+    width: 100%;
+    padding: 0;
+    margin: 5px 10px;
+    text-align: center;
+}
+
+.hourly-hour {
+    font-size: 8px;
+    font-weight: bold;
+}
+
+.hourly-temp {
+    font-size: 12px;
 }
 
 ::-webkit-scrollbar {
