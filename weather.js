@@ -5,19 +5,25 @@ const CURRENT = "/current.json";
 const FORECAST = "/forecast.json";
 const QUERY_PARAM = "q=";
 const DAYS_PARAM = "days=";
+const DAWN_TIME = 7;
 const NIGHT_TIME = 19;
+let currentDate = '';
+let currentHour = 0;
 
 function setCurrentTemp(response) {
     let tempF = document.getElementById('fahrenheit');
     tempF.innerHTML = Math.round(parseFloat(response.temp_f))  + "º";
 
-    let currentDate = Date.now();
-    let currentTime = new Date(currentDate);
-    let currentHour = currentTime.getHours();
-    if (currentHour > NIGHT_TIME) {
+    if (currentHour < DAWN_TIME && currentHour > NIGHT_TIME) {
         let container = document.querySelector('.container');
         container.style.cssText = "background-color: rgb(22, 22, 53)";
     }
+}
+
+function setLocalTime(response) {
+    currentDate = new Date(response);
+    console.log(currentDate);
+    currentHour = currentDate.getHours();
 }
 
 function setHighLow(response) {
@@ -31,31 +37,23 @@ function setHighLow(response) {
 function setTodaysForecast(response) {
     let todayForecast = document.querySelector('.today-forecast');
     todayForecast.style.cssText = "display: flex";
-
-    let hourlyTemp = new Array(24);
-    for (let i = 0; i < 24; i++) {
-        hourlyTemp[i] = Math.round(parseFloat(response[i].temp_f));
-    }
-    console.log(hourlyTemp);
-
-    let currentDate = Date.now();
-    let currentTime = new Date(currentDate);
-    let hours = currentTime.getHours();
     
     let hourlyHeader = document.querySelector('.hourly-headers');
     let hourlyBody = document.querySelector('.hourly-bodys');
 
-    for (let i = hours; i < 24; i++) {
+    console.log("Local current hour: ", currentHour);
+    for (let i = currentHour; i < 24; i++) {
         let hour = document.createElement('th');
+        hour.classList.add('forecast-hour');
         let temp = document.createElement('td');
-
+        temp.classList.add('forecast-temp');
         if (i >= 12) {
             hour.innerHTML = (i + 1 - 12);
         } else {
             hour.innerHTML = (i + 1);
         }
 
-        temp.innerHTML = hourlyTemp[i];
+        temp.innerHTML = Math.round(parseFloat(response[i].temp_f));
         hourlyHeader.appendChild(hour);
         hourlyBody.appendChild(temp);
     }
@@ -86,7 +84,7 @@ function displaySearch() {
 
     if (city.style.width === "20px") {
         city.style.cssText = `
-            width: 100%;
+            width: 200px;
             -webkit-transition: transform 2s;
             -moz-transition: transform 2s;
             -o-transition: transform 2s;
@@ -115,6 +113,7 @@ function getCity() {
             let cityName = document.getElementById('city');
             cityName.innerHTML = response.location.name;
 
+            setLocalTime(response.location.localtime);
             setCurrentTemp(response.current);
             setHighLow(response.forecast.forecastday[0].day);
             setTodaysForecast(response.forecast.forecastday[0].hour);
