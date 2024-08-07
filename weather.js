@@ -6,7 +6,7 @@ const CURRENT = "/current.json";
 const FORECAST = "/forecast.json";
 const QUERY_PARAM = "q=";
 const DAYS_PARAM = "days=";
-const DAYS = 8;
+const DAYS = 7;
 const DAWN_TIME = 7;
 const NIGHT_TIME = 19;
 let currentDate = '';
@@ -84,11 +84,10 @@ function setDailyMaxMin(temps, date, forecastMap) {
     let tempContainer = document.createElement('p');
     tempContainer.classList.add('daily-temps');
 
-    let day = new Date(date);
-    if (currentDate.getDay() === day.getDay()) {
+    if (currentDate.toString().slice(0,3) === date.slice(0,3)) {
         dateContainer.innerHTML = "Today";
     } else {
-        dateContainer.innerHTML = day.toLocaleDateString("en-US", {weekday: 'short'});
+        dateContainer.innerHTML = date.slice(0,3);
     }
     tempContainer.innerHTML = "H: " + Math.round(parseFloat(temps.max)) + "º | L: " + Math.round(parseFloat(temps.min)) + "º";
 
@@ -100,8 +99,9 @@ function setDailyMaxMin(temps, date, forecastMap) {
 function setDailyForecast(response) {
     let forecastMap = new Map();
 
-    for (i = 1; i < DAYS; i++) {
-        forecastMap.set(response[i].date, {
+    for (i = 0; i < DAYS; i++) {
+        let date = new Date(response[i].date);
+        forecastMap.set(date.toUTCString(), {
             max: response[i].day.maxtemp_f, 
             min: response[i].day.mintemp_f
         });
