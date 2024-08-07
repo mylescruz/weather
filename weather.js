@@ -1,6 +1,5 @@
 // Global Variables
 const URL = "https://api.weatherapi.com/v1";
-const KEY_FILE = './assets/key.txt';
 const API_KEY = "key=c92183db87384d8d806184544242907";
 const CURRENT = "/current.json";
 const FORECAST = "/forecast.json";
@@ -11,8 +10,14 @@ const DAWN_TIME = 7;
 const NIGHT_TIME = 19;
 let currentDate = '';
 let currentHour = 0;
+import CONDITIONS from './assets/conditions.js';
 
 // Functions to display details
+function setCity(response) {
+    let cityName = document.getElementById('city');
+    cityName.innerHTML = response.toUpperCase();
+}
+
 function setCurrentTemp(response) {
     let tempF = document.getElementById('fahrenheit');
     tempF.innerHTML = Math.round(parseFloat(response.temp_f))  + "º";
@@ -51,6 +56,7 @@ function setHourlyForecast(response) {
     let tomorrowTemps = response[1].hour;
     let forecastTemps = todayTemps.concat(tomorrowTemps);
     console.log("Forecast temps: ", forecastTemps);
+    console.log("Condition: ", forecastTemps[0].condition.text);
 
     let hourlyForecast = document.querySelector('.hourly-forecast');
     hourlyForecast.style.display = "flex";
@@ -95,6 +101,8 @@ function setDailyMaxMin(temps, date, forecastMap) {
     dailyContainer.classList.add('day');
     let dateContainer = document.createElement('p');
     dateContainer.classList.add('forecast-date');
+    let conditionImage = document.createElement('img');
+    conditionImage.classList.add('forecast-condition');
     let tempContainer = document.createElement('p');
     tempContainer.classList.add('daily-temps');
 
@@ -103,21 +111,28 @@ function setDailyMaxMin(temps, date, forecastMap) {
     } else {
         dateContainer.innerHTML = date.slice(0,3);
     }
-    tempContainer.innerHTML = "H: " + Math.round(parseFloat(temps.max)) + "º | L: " + Math.round(parseFloat(temps.min)) + "º";
-
     dailyContainer.appendChild(dateContainer);
+
+    if (CONDITIONS.has(temps.condition)) {
+        conditionImage.src = "assets/images/" + CONDITIONS.get(temps.condition);
+        dailyContainer.appendChild(conditionImage);
+    }
+
+    tempContainer.innerHTML = "H: " + Math.round(parseFloat(temps.max)) + "º | L: " + Math.round(parseFloat(temps.min)) + "º";
     dailyContainer.appendChild(tempContainer);
+    
     dailyForecast.appendChild(dailyContainer);
 }
 
 function setDailyForecast(response) {
     let forecastMap = new Map();
 
-    for (i = 0; i < DAYS; i++) {
+    for (let i = 0; i < DAYS; i++) {
         let date = new Date(response[i].date);
         forecastMap.set(date.toUTCString(), {
             max: response[i].day.maxtemp_f, 
-            min: response[i].day.mintemp_f
+            min: response[i].day.mintemp_f,
+            condition: response[i].day.condition.text
         });
     }
 
@@ -183,9 +198,7 @@ function getCity() {
             console.log(response.location.name);
             console.log(response.current.temp_f + "ºF");
 
-            let cityName = document.getElementById('city');
-            cityName.innerHTML = response.location.name.toUpperCase();
-
+            setCity(response.location.name);
             setLocalTime(response.location.localtime);
             setCurrentTemp(response.current);
             setHighLow(response.forecast.forecastday[0].day);
