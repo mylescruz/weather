@@ -29,6 +29,26 @@ body {
     color: white;
 }
 
+.welcome {
+    width: 225px;
+    height: 200px;
+    background-color: white;
+    color: var(--color-background-morning);
+    margin: 50px 10px 0px;
+    padding: 10px 10px;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.title {
+    font-size: 32px;
+}
+
+.instructions {
+    font-size: 20px;
+    padding: 0px 10px;
+}
+
 .header {
     display: inherit;
     justify-content: center;
@@ -41,7 +61,7 @@ body {
     padding: 5px 10px;
     border: none;
     border-radius: 25px;
-    width: 200px;
+    width: 225px;
 }
 
 .details {

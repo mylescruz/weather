@@ -20,6 +20,11 @@ function setCurrentTemp(response) {
     if (currentHour < DAWN_TIME || currentHour > NIGHT_TIME) {
         let container = document.querySelector('.container');
         container.style.cssText = "background-color: rgb(22, 22, 53)";
+
+        let hourForecast = document.querySelector('.hourly-forecast');
+        let dayForecast = document.querySelector('.daily-forecast');
+        hourForecast.style.color = "rgb(22, 22, 53)";
+        dayForecast.style.color = "rgb(22, 22, 53)";
     }
 }
 
@@ -108,7 +113,7 @@ function setDailyForecast(response) {
     dailyForecast.style.display = "flex";
 }
 
-function moveSearchBar() {
+function updateDisplay() {
     let city = document.getElementById('search');
     
     city.value = "";
@@ -127,6 +132,9 @@ function moveSearchBar() {
         -ms-transform: translateX(125px);
         position: absolute;
     `;
+
+    let welcome = document.querySelector('.welcome');
+    welcome.style.display = "none";
 }
 
 function displaySearch() {
@@ -134,7 +142,7 @@ function displaySearch() {
 
     if (city.style.width === "20px") {
         city.style.cssText = `
-            width: 200px;
+            width: 225px;
             -webkit-transition: transform 1.5s;
             -moz-transition: transform 1.5s;
             -o-transition: transform 1.5s;
@@ -169,7 +177,7 @@ function getCity() {
             setHighLow(response.forecast.forecastday[0].day);
             setHourlyForecast(response.forecast.forecastday);
             setDailyForecast(response.forecast.forecastday);
-            moveSearchBar();
+            updateDisplay();
         }
     };
 
