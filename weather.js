@@ -55,8 +55,6 @@ function setHourlyForecast(response) {
     let todayTemps = response[0].hour;
     let tomorrowTemps = response[1].hour;
     let forecastTemps = todayTemps.concat(tomorrowTemps);
-    console.log("Forecast temps: ", forecastTemps);
-    console.log("Condition: ", forecastTemps[0].condition.text);
 
     let hourlyForecast = document.querySelector('.hourly-forecast');
     hourlyForecast.style.display = "flex";
@@ -66,6 +64,8 @@ function setHourlyForecast(response) {
         hourlyContainer.classList.add('hour');
         let hour = document.createElement('p');
         hour.classList.add('forecast-hour');
+        let conditionImage = document.createElement('img');
+        conditionImage.classList.add('hourly-condition');
         let temp = document.createElement('p');
         temp.classList.add('hourly-temp');
 
@@ -86,10 +86,16 @@ function setHourlyForecast(response) {
         } else {
             hour.innerHTML = (i - 24) + "pm";
         }
+        hourlyContainer.append(hour);
+
+        if (CONDITIONS.has(forecastTemps[i].condition.text)) {
+            conditionImage.src = CONDITIONS.get(forecastTemps[i].condition.text);
+        }
+        hourlyContainer.append(conditionImage);
 
         temp.innerHTML = Math.round(parseFloat(forecastTemps[i].temp_f)) + "º";
-        hourlyContainer.append(hour);
         hourlyContainer.append(temp);
+        
         hourlyForecast.appendChild(hourlyContainer);
     }
 }
@@ -114,7 +120,7 @@ function setDailyMaxMin(temps, date, forecastMap) {
     dailyContainer.appendChild(dateContainer);
 
     if (CONDITIONS.has(temps.condition)) {
-        conditionImage.src = "assets/images/" + CONDITIONS.get(temps.condition);
+        conditionImage.src = CONDITIONS.get(temps.condition);
         dailyContainer.appendChild(conditionImage);
     }
 
