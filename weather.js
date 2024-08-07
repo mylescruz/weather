@@ -21,6 +21,15 @@ function setCity(response) {
 function setCurrentTemp(response) {
     let tempF = document.getElementById('fahrenheit');
     tempF.innerHTML = Math.round(parseFloat(response.temp_f))  + "º";
+
+    let conditionImage = document.createElement('img');
+    conditionImage.classList.add('background-condition');
+    if (CONDITIONS.has(response.condition.text)) {
+        conditionImage.src = CONDITIONS.get(response.condition.text);
+    }
+
+    let container = document.querySelector('.container');
+    container.appendChild(conditionImage);
 }
 
 function setLocalTime(response) {
