@@ -17,7 +17,7 @@ function setCurrentTemp(response) {
     let tempF = document.getElementById('fahrenheit');
     tempF.innerHTML = Math.round(parseFloat(response.temp_f))  + "º";
 
-    if (currentHour < DAWN_TIME && currentHour > NIGHT_TIME) {
+    if (currentHour < DAWN_TIME || currentHour > NIGHT_TIME) {
         let container = document.querySelector('.container');
         container.style.cssText = "background-color: rgb(22, 22, 53)";
     }
@@ -38,6 +38,9 @@ function setHighLow(response) {
 }
 
 function setHourlyForecast(response) {
+    let todayTemps = response[0].hour;
+    let tomorrowTemps = response[1].hour;
+
     let hourlyForecast = document.querySelector('.hourly-forecast');
     hourlyForecast.style.display = "flex";
 
@@ -59,7 +62,7 @@ function setHourlyForecast(response) {
             hour.innerHTML = (i + 1) + "am";
         }
 
-        temp.innerHTML = Math.round(parseFloat(response[i].temp_f)) + "º";
+        temp.innerHTML = Math.round(parseFloat(todayTemps[i].temp_f)) + "º";
         hourlyContainer.append(hour);
         hourlyContainer.append(temp);
         hourlyForecast.appendChild(hourlyContainer);
@@ -77,7 +80,11 @@ function setDailyMaxMin(temps, date, forecastMap) {
     tempContainer.classList.add('daily-temps');
 
     let day = new Date(date);
-    dateContainer.innerHTML = day.toLocaleDateString("en-US", {weekday: 'short'});
+    if (currentDate.getDay() === day.getDay()) {
+        dateContainer.innerHTML = "Today";
+    } else {
+        dateContainer.innerHTML = day.toLocaleDateString("en-US", {weekday: 'short'});
+    }
     tempContainer.innerHTML = "H: " + Math.round(parseFloat(temps.max)) + "º | L: " + Math.round(parseFloat(temps.min)) + "º";
 
     dailyContainer.appendChild(dateContainer);
@@ -160,7 +167,7 @@ function getCity() {
             setLocalTime(response.location.localtime);
             setCurrentTemp(response.current);
             setHighLow(response.forecast.forecastday[0].day);
-            setHourlyForecast(response.forecast.forecastday[0].hour);
+            setHourlyForecast(response.forecast.forecastday);
             setDailyForecast(response.forecast.forecastday);
             moveSearchBar();
         }
