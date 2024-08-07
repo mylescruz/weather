@@ -16,22 +16,26 @@ let currentHour = 0;
 function setCurrentTemp(response) {
     let tempF = document.getElementById('fahrenheit');
     tempF.innerHTML = Math.round(parseFloat(response.temp_f))  + "º";
-
-    if (currentHour < DAWN_TIME || currentHour > NIGHT_TIME) {
-        let container = document.querySelector('.container');
-        container.style.cssText = "background-color: rgb(22, 22, 53)";
-
-        let hourForecast = document.querySelector('.hourly-forecast');
-        let dayForecast = document.querySelector('.daily-forecast');
-        hourForecast.style.color = "rgb(22, 22, 53)";
-        dayForecast.style.color = "rgb(22, 22, 53)";
-    }
 }
 
 function setLocalTime(response) {
     currentDate = new Date(response);
     console.log(currentDate);
     currentHour = currentDate.getHours();
+
+    if (currentHour < DAWN_TIME || currentHour > NIGHT_TIME) {
+        nightMode();
+    }
+}
+
+function nightMode() {
+    let container = document.querySelector('.container');
+    container.style.cssText = "background-color: rgb(22, 22, 53)";
+
+    let hourForecast = document.querySelector('.hourly-forecast');
+    let dayForecast = document.querySelector('.daily-forecast');
+    hourForecast.style.color = "rgb(22, 22, 53)";
+    dayForecast.style.color = "rgb(22, 22, 53)";
 }
 
 function setHighLow(response) {
@@ -45,11 +49,13 @@ function setHighLow(response) {
 function setHourlyForecast(response) {
     let todayTemps = response[0].hour;
     let tomorrowTemps = response[1].hour;
+    let forecastTemps = todayTemps.concat(tomorrowTemps);
+    console.log("Forecast temps: ", forecastTemps);
 
     let hourlyForecast = document.querySelector('.hourly-forecast');
     hourlyForecast.style.display = "flex";
 
-    for (let i = currentHour; i < 24; i++) {
+    for (let i = currentHour; i < (currentHour + 12); i++) {
         let hourlyContainer = document.createElement('div');
         hourlyContainer.classList.add('hour');
         let hour = document.createElement('p');
@@ -57,17 +63,25 @@ function setHourlyForecast(response) {
         let temp = document.createElement('p');
         temp.classList.add('hourly-temp');
 
-        if (i >= 12) {
-            if ( i === 23) {
-                hour.innerHTML = (i + 1 - 12) + "am";
-            } else {
-                hour.innerHTML = (i + 1 - 12) + "pm";
-            }
+        if (i === currentHour) {
+            hour.innerHTML = "Now";
+        } else if (i === 0) {
+            hour.innerHTML = (i + 12) + "am";
+        } else if (i < 12) {
+            hour.innerHTML = i + "am";
+        } else if (i === 12) {
+            hour.innerHTML = i + "pm";
+        } else if (i > 12 && i < 24) {
+            hour.innerHTML = (i - 12) + "pm";
+        } else if (i === 24) {
+            hour.innerHTML = (i - 12) + "am";
+        } else if (i > 24 && i < 36) {
+            hour.innerHTML = (i - 24) + "am";
         } else {
-            hour.innerHTML = (i + 1) + "am";
+            hour.innerHTML = (i - 24) + "pm";
         }
 
-        temp.innerHTML = Math.round(parseFloat(todayTemps[i].temp_f)) + "º";
+        temp.innerHTML = Math.round(parseFloat(forecastTemps[i].temp_f)) + "º";
         hourlyContainer.append(hour);
         hourlyContainer.append(temp);
         hourlyForecast.appendChild(hourlyContainer);
