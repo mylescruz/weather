@@ -12,22 +12,26 @@
                 <input type="text" placeholder="&#128269; Search for a city" id="search" required/>
             </div>
 
-            <div class="welcome">
-                <h1 class="title">Weather App</h1>
-                <p class="instructions">Search your city or zipcode to get the current temperature</p>
+            <div class="weather-body">
+                <div class="welcome">
+                    <h1 class="title">Weather App</h1>
+                    <p class="instructions">Search your city or zipcode to get the current temperature</p>
+                </div>
+
+                <div class="details">
+                    <p id="city"></p>
+                    <p class="temperature" id="fahrenheit"></p>
+                    <p class="today"></p>
+                </div>
+
+                <img class="background-condition"/>
+
+                <div class="hourly-forecast"></div>
+
+                <div class="daily-forecast"></div>
             </div>
 
-            <div class="details">
-                <p id="city"></p>
-                <p class="temperature" id="fahrenheit"></p>
-                <p class="today"></p>
-            </div>
-
-            <img class="background-condition"/>
-
-            <div class="hourly-forecast"></div>
-
-            <div class="daily-forecast"></div>
+            <div class="error">Invalid city or zip code provided. &nbsp; Please try again.</div>
         </div>
 
         <script type="module" src="weather.js"></script>

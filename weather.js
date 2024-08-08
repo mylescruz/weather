@@ -25,7 +25,6 @@ function setCurrentTemp(response) {
     let conditionImage = document.querySelector('.background-condition');
 
     let requestedCondition = response.condition.text.toUpperCase().trim();
-    console.log(requestedCondition);
     if (CONDITIONS.has(requestedCondition)) {
         conditionImage.src = CONDITIONS.get(requestedCondition);
         conditionImage.style.display = "flex";
@@ -98,7 +97,6 @@ function setHourlyForecast(response) {
         hourlyContainer.append(hour);
 
         let requestedCondition = forecastTemps[i].condition.text.toUpperCase().trim();
-        console.log(requestedCondition);
         if (CONDITIONS.has(requestedCondition)) {
             conditionImage.src = CONDITIONS.get(requestedCondition);
         }
@@ -131,7 +129,6 @@ function setDailyMaxMin(temps, date, forecastMap) {
     dailyContainer.appendChild(dateContainer);
 
     let requestedCondition = temps.condition.toUpperCase().trim();
-    console.log(requestedCondition);
     if (CONDITIONS.has(requestedCondition)) {
         conditionImage.src = CONDITIONS.get(requestedCondition);
     }
@@ -181,8 +178,14 @@ function updateDisplay() {
         position: absolute;
     `;
 
+    let body = document.querySelector('.weather-body');
+    body.style.display = "flex";
+
     let welcome = document.querySelector('.welcome');
     welcome.style.display = "none";
+
+    let error = document.querySelector('.error');
+    error.style.display = "none";
 }
 
 function displaySearch() {
@@ -205,6 +208,14 @@ function displaySearch() {
     }
 }
 
+function invalidRequest() {
+    let body = document.querySelector('.weather-body');
+    body.style.display = "none";
+    
+    let error = document.querySelector('.error');
+    error.style.display = "flex";
+}
+
 // Function to get city details from the Weather API
 function getCity() {
     let city = document.getElementById('search').value;
@@ -224,6 +235,9 @@ function getCity() {
             setHourlyForecast(response.forecast.forecastday);
             setDailyForecast(response.forecast.forecastday);
             updateDisplay();
+        }
+        if (this.readyState === XMLHttpRequest.DONE && this.status !== 200) {
+            invalidRequest();
         }
     };
 

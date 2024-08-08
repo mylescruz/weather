@@ -29,6 +29,17 @@ body {
     color: white;
 }
 
+.weather-body {
+    display: none;
+    width: 100%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0px;
+    padding: 0;
+}
+
 .welcome {
     width: 225px;
     height: 200px;
@@ -75,7 +86,7 @@ body {
 
 #city {
     padding: 0;
-    margin: 25px 0px 0px;
+    margin: 0;
     font-size: 25px;
 }
 
@@ -96,7 +107,7 @@ body {
     display: none;
     width: 150px;
     height: 150px;
-    top: inherit;
+    top: 15%;
     left: inherit;
     opacity: 40%;
     position: absolute;
@@ -106,11 +117,11 @@ body {
 
 @keyframes slide {
     from {
-        translate: -60% 15%;
+        translate: -60% 0%;
     }
 
     to {
-        translate: 60% 15%;
+        translate: 60% 0%;
     }
 }
 
@@ -200,4 +211,17 @@ body {
 
 ::-webkit-scrollbar {
     scrollbar-width: none;
+}
+
+.error {
+    display: none;
+    width: 225px;
+    height: 200px;
+    background-color: white;
+    font-size: 25px;
+    color: var(--color-background-morning);
+    margin: 50px 10px 0px;
+    padding: 50px 10px 0px;
+    border-radius: 25px;
+    text-align: center;
 }
