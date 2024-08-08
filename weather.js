@@ -22,14 +22,14 @@ function setCurrentTemp(response) {
     let tempF = document.getElementById('fahrenheit');
     tempF.innerHTML = Math.round(parseFloat(response.temp_f))  + "º";
 
-    let conditionImage = document.createElement('img');
-    conditionImage.classList.add('background-condition');
-    if (CONDITIONS.has(response.condition.text)) {
-        conditionImage.src = CONDITIONS.get(response.condition.text);
-    }
+    let conditionImage = document.querySelector('.background-condition');
 
-    let container = document.querySelector('.container');
-    container.appendChild(conditionImage);
+    let requestedCondition = response.condition.text.toUpperCase().trim();
+    console.log(requestedCondition);
+    if (CONDITIONS.has(requestedCondition)) {
+        conditionImage.src = CONDITIONS.get(requestedCondition);
+        conditionImage.style.display = "flex";
+    }
 }
 
 function setLocalTime(response) {
@@ -97,8 +97,10 @@ function setHourlyForecast(response) {
         }
         hourlyContainer.append(hour);
 
-        if (CONDITIONS.has(forecastTemps[i].condition.text)) {
-            conditionImage.src = CONDITIONS.get(forecastTemps[i].condition.text);
+        let requestedCondition = forecastTemps[i].condition.text.toUpperCase().trim();
+        console.log(requestedCondition);
+        if (CONDITIONS.has(requestedCondition)) {
+            conditionImage.src = CONDITIONS.get(requestedCondition);
         }
         hourlyContainer.append(conditionImage);
 
@@ -128,10 +130,12 @@ function setDailyMaxMin(temps, date, forecastMap) {
     }
     dailyContainer.appendChild(dateContainer);
 
-    if (CONDITIONS.has(temps.condition)) {
-        conditionImage.src = CONDITIONS.get(temps.condition);
-        dailyContainer.appendChild(conditionImage);
+    let requestedCondition = temps.condition.toUpperCase().trim();
+    console.log(requestedCondition);
+    if (CONDITIONS.has(requestedCondition)) {
+        conditionImage.src = CONDITIONS.get(requestedCondition);
     }
+    dailyContainer.appendChild(conditionImage);
 
     tempContainer.innerHTML = "H: " + Math.round(parseFloat(temps.max)) + "º | L: " + Math.round(parseFloat(temps.min)) + "º";
     dailyContainer.appendChild(tempContainer);

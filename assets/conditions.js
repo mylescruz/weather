@@ -1,202 +1,202 @@
 let conditions = [
 	{
-		"condition" : "Sunny",
+		"condition" : "SUNNY",
 		"image" : "assets/images/sunny.png"
 	},
 	{
-		"condition" : "Clear ",
+		"condition" : "CLEAR",
 		"image" : "assets/images/night.png"
 	},
 	{
-		"condition" : "Partly Cloudy ",
+		"condition" : "PARTLY CLOUDY",
 		"image" : "assets/images/partly_cloudy.png"
 	},
 	{
-		"condition" : "Cloudy",
+		"condition" : "CLOUDY",
 		"image" : "assets/images/cloudy.png"
 	},
 	{
-		"condition" : "Overcast",
+		"condition" : "OVERCAST",
 		"image" : "assets/images/overcast.png"
 	},
 	{
-		"condition" : "Mist",
+		"condition" : "MIST",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Patchy rain possible",
+		"condition" : "PATCHY RAIN POSSIBLE",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Patchy snow possible",
+		"condition" : "PATCHY SNOW POSSIBLE",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Patchy sleet possible",
+		"condition" : "PATCHY SLEET POSSIBLE",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Patchy freezing drizzle possible",
+		"condition" : "PATCHY FREEZING DRIZZLE POSSIBLE",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Thundery outbreaks possible",
+		"condition" : "THUNDERY OUTBREAKS POSSIBLE",
 		"image" : "assets/images/lightning.png"
 	},
 	{
-		"condition" : "Blowing snow",
+		"condition" : "BLOWING SNOW",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Blizzard",
+		"condition" : "BLIZZARD",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Fog",
+		"condition" : "FOG",
 		"image" : "assets/images/cloudy.png"
 	},
 	{
-		"condition" : "Freezing fog",
+		"condition" : "FREEZING FOG",
 		"image" : "assets/images/cloudy.png"
 	},
 	{
-		"condition" : "Patchy light drizzle",
+		"condition" : "PATCHY LIGHT DRIZZLE",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Light drizzle",
+		"condition" : "LIGHT DRIZZLE",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Freezing drizzle",
+		"condition" : "FREEZING DRIZZLE",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Heavy freezing drizzle",
+		"condition" : "HEAVY FREEZING DRIZZLE",
 		"image" : "assets/images/heavy_rain.png"
 	},
 	{
-		"condition" : "Patchy light rain",
+		"condition" : "PATCHY LIGHT RAIN",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Patchy rain nearby",
+		"condition" : "PATCHY RAIN NEARBY",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Light rain",
+		"condition" : "LIGHT RAIN",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Moderate rain at times",
+		"condition" : "MODERATE RAIN AT TIMES",
 		"image" : "assets/images/rain.png"
 	},
 	{
-		"condition" : "Moderate rain",
+		"condition" : "MODERATE RAIN",
 		"image" : "assets/images/rain.png"
 	},
 	{
-		"condition" : "Heavy rain at times",
+		"condition" : "HEAVY RAIN AT TIMES",
 		"image" : "assets/images/heavy_rain.png"
 	},
 	{
-		"condition" : "Heavy rain",
+		"condition" : "HEAVY RAIN",
 		"image" : "assets/images/heavy_rain.png"
 	},
 	{
-		"condition" : "Light freezing rain",
+		"condition" : "LIGHT FREEZING RAIN",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Moderate or heavy freezing rain",
+		"condition" : "MODERATE OR HEAVY FREEZING RAIN",
 		"image" : "assets/images/heavy_rain.png"
 	},
 	{
-		"condition" : "Light sleet",
+		"condition" : "LIGHT SLEET",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Moderate or heavy sleet",
+		"condition" : "MODERATE OR HEAVY SLEET",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Patchy light snow",
+		"condition" : "PATCHY LIGHT SNOW",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Light snow",
+		"condition" : "LIGHT SNOW",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Patchy moderate snow",
+		"condition" : "PATCHY MODERATE SNOW",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Moderate snow",
+		"condition" : "MODERATE SNOW",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Patchy heavy snow",
+		"condition" : "PATCHY HEAVY SNOW",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Heavy snow",
+		"condition" : "HEAVY SNOW",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Ice pellets",
+		"condition" : "ICE PELLETS",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Light rain shower",
+		"condition" : "LIGHT RAIN SHOWER",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Moderate or heavy rain shower",
+		"condition" : "MODERATE OR HEAVY RAIN SHOWER",
 		"image" : "assets/images/heavy_rain.png"
 	},
 	{
-		"condition" : "Torrential rain shower",
+		"condition" : "TORRENTIAL RAIN SHOWER",
 		"image" : "assets/images/heavy_rain.png"
 	},
 	{
-		"condition" : "Light sleet showers",
+		"condition" : "LIGHT SLEET SHOWERS",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Moderate or heavy sleet showers",
+		"condition" : "MODERATE OR HEAVY SLEET SHOWERS",
 		"image" : "assets/images/heavy_rain.png"
 	},
 	{
-		"condition" : "Light snow showers",
+		"condition" : "LIGHT SNOW SHOWERS",
 		"image" : "assets/images/snow.png"
 	},
 	{
-		"condition" : "Moderate or heavy snow showers",
+		"condition" : "MODERATE OR HEAVY SNOW SHOWERS",
 		"image" : "assets/images/heavy_rain.png"
 	},
 	{
-		"condition" : "Light showers of ice pellets",
+		"condition" : "LIGHT SHOWERS OF ICE PELLETS",
 		"image" : "assets/images/light_rain.png"
 	},
 	{
-		"condition" : "Moderate or heavy showers of ice pellets",
+		"condition" : "MODERATE OR HEAVY SHOWERS OF ICE PELLETS",
 		"image" : "assets/images/heavy_rain.png"
 	},
 	{
-		"condition" : "Patchy light rain with thunder",
+		"condition" : "PATCHY LIGHT RAIN WITH THUNDER",
 		"image" : "assets/images/lightning_storm.png"
 	},
 	{
-		"condition" : "Moderate or heavy rain with thunder",
+		"condition" : "MODERATE OR HEAVY RAIN WITH THUNDER",
 		"image" : "assets/images/lightning_storm.png"
 	},
 	{
-		"condition" : "Patchy light snow with thunder",
+		"condition" : "PATCHY LIGHT SNOW WITH THUNDER",
 		"image" : "assets/images/lightning_storm.png"
 	},
 	{
-		"condition" : "Moderate or heavy snow with thunder",
+		"condition" : "MODERATE OR HEAVY SNOW WITH THUNDER",
 		"image" : "assets/images/lightning_storm.png"
 	}
 ];

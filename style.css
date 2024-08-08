@@ -93,6 +93,7 @@ body {
 }
 
 .background-condition {
+    display: none;
     width: 150px;
     height: 150px;
     top: inherit;
