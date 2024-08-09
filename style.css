@@ -13,7 +13,228 @@ html, body {
 body {
     display: flex;
     justify-content: center;
+    align-items: center;
+    background-color: var(--color-background-morning);
+}
+
+.container {
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    width: 100%;
+}
+
+.weather-body {
+    display: none;
+    width: 100%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0px;
+    padding: 0;
+}
+
+.welcome {
+    width: 80%;
+    height: 400px;
+    background-color: white;
+    color: var(--color-background-morning);
+    margin: 50px 10px 0px;
+    padding: 10px 10px;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.title {
+    font-size: 50px;
+}
+
+.instructions {
+    font-size: 30px;
+    padding: 0px 10px;
+}
+
+.header {
+    display: inherit;
+    justify-content: center;
+    margin-top: 1em;
+    width: 100%;
+}
+
+#search {
+    appearance: none;
+    margin: 0;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    width: 80%;
+    z-index: 5;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 2em 0em 1em;
+    z-index: 5;
+}
+
+#city {
+    padding: 0;
+    margin: 0;
+    font-size: 10vw;
+}
+
+.temperature {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 0;
+    margin: 0.25em 0em;
+    font-size: 15vw;
+}
+
+.today {
+    padding: 0;
+    margin: 0;
+    font-size: 7vw;
+    text-align: center;
+}
+
+.background-condition {
+    display: none;
+    width: 40%;
+    height: 25%;
+    top: 10%;
+    left: inherit;
+    opacity: 40%;
+    position: absolute;
+    z-index: 0;
+    animation: 25s infinite alternate slide;
+}
+
+@keyframes slide {
+    from {
+        translate: -60% 0%;
+    }
+
+    to {
+        translate: 60% 0%;
+    }
+}
+
+.hourly-forecast {
+    display: none;
+    flex-direction: row;
+    background-color: white;
+    color: var(--color-background-morning);
+    height: 25%;
+    width: 80%;
+    margin: 1em 0em;
+    padding: 8px 10px;
+    border-radius: 10px;
+    align-items: center;
+    max-width: 75%;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+.hour {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.forecast-hour, .hourly-temp {
+    width: 100%;
+    margin: 0.5em 0.5em;
+    text-align: center;
+}
+
+.forecast-hour {
+    font-size: 4vw;
+    font-weight: bold;
+    padding-top: 0;
+}
+
+.hourly-condition {
+    padding: 0;
+    margin: 0;
+    height: 50px;
+    width: 50px;
+}
+
+.hourly-temp {
+    font-size: 5vw;
+    padding-bottom: 0;
+}
+
+.daily-forecast {
+    display: none;
+    flex-direction: column;
+    background-color: white;
+    color: var(--color-background-morning);
+    height: 33%;
+    width: 75%;
+    margin: 1em 0em;
+    padding: 8px 10px;
+    border-radius: 10px;
+    align-items: center;
+    max-height: 10em;
+    overflow-y: scroll;
+}
+
+.day {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin: 0.5em 0em;
+}
+
+.forecast-date, .daily-temps {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 5vw;
+}
+
+.forecast-condition {
+    padding: 0;
+    margin: 0px 15px 0px 0px;
+    height: 15%;
+    width: 15%;
+}
+
+::-webkit-scrollbar {
+    scrollbar-width: none;
+}
+
+.error {
+    display: none;
+    width: 80%;
+    height: 200px;
+    background-color: white;
+    font-size: 9vw;
+    color: var(--color-background-morning);
+    margin: 50px 10px 0px;
+    padding: 50px 10px 0px;
+    border-radius: 25px;
+    text-align: center;
+}
+
+
+@media screen and (min-width: 768px) {
+body {
+    display: flex;
+    justify-content: center;
     margin-top: 25px;
+    background-color: white;
 }
 
 .container {
@@ -81,6 +302,7 @@ body {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    margin: 0;
     z-index: 5;
 }
 
@@ -100,6 +322,7 @@ body {
 .today {
     padding: 0;
     margin: 0;
+    font-size: 20px;
     text-align: center;
 }
 
@@ -193,9 +416,11 @@ body {
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
+    margin: 5px 0px;
 }
 
 .forecast-date, .daily-temps {
+    font-size: 15px;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -224,4 +449,5 @@ body {
     padding: 50px 10px 0px;
     border-radius: 25px;
     text-align: center;
+}
 }
