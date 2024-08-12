@@ -10,6 +10,7 @@ const DAWN_TIME = 7;
 const NIGHT_TIME = 19;
 let currentDate = '';
 let currentHour = 0;
+let searched = false;
 let hourContainerCreated = false;
 let dayContainerCreated = false;
 import CONDITIONS from './assets/conditions.js';
@@ -193,7 +194,8 @@ function updateDisplay() {
     city.blur();
     city.placeholder = '\u{1F50D}';
     city.style.cssText = `
-        width: 20px;
+        width: 30px;
+        text-align: center;
         -webkit-transition: transform 1.5s;
         -moz-transition: transform 1.5s;
         -o-transition: transform 1.5s;
@@ -203,6 +205,7 @@ function updateDisplay() {
         -moz-transform: translateX(125px);
         -o-transform: translateX(125px);
         -ms-transform: translateX(125px);
+        transform: translateX(125px);
         position: absolute;
     `;
 
@@ -214,14 +217,17 @@ function updateDisplay() {
 
     let error = document.querySelector('.error');
     error.style.display = "none";
+
+    searched = true;
 }
 
 function displaySearch() {
     let city = document.getElementById('search');
 
-    if (city.style.width === "20px") {
+    if (searched) {
         city.style.cssText = `
             width: 225px;
+            text-align: left;
             -webkit-transition: transform 1.5s;
             -moz-transition: transform 1.5s;
             -o-transition: transform 1.5s;
@@ -231,9 +237,12 @@ function displaySearch() {
             -moz-transform: translateX(0px);
             -o-transform: translateX(0px);
             -ms-transform: translateX(0px);
+            transform: translateX(0px);
             position: relative;
         `;
     }
+
+    searched = false;
 }
 
 function invalidRequest() {
