@@ -10,7 +10,8 @@ const DAWN_TIME = 7;
 const NIGHT_TIME = 19;
 let currentDate = '';
 let currentHour = 0;
-let hourFlag = false;
+let hourContainerCreated = false;
+let dayContainerCreated = false;
 import CONDITIONS from './assets/conditions.js';
 
 // Functions to display details
@@ -64,7 +65,7 @@ function setHighLow(response) {
 }
 
 function setHourlyForecast(response) {
-    if (hourFlag) {
+    if (hourContainerCreated) {
         let hourlyForecast = document.querySelector('.hourly-forecast');
         hourlyForecast.remove();
     }
@@ -75,7 +76,7 @@ function setHourlyForecast(response) {
 
     let hourContainer = document.querySelector('.hour-container');
     hourContainer.style.display = "flex";
-    
+
     let hourlyForecast = document.createElement('div');
     hourlyForecast.classList.add('hourly-forecast');
 
@@ -122,10 +123,10 @@ function setHourlyForecast(response) {
 
     hourContainer.append(hourlyForecast);
 
-    hourFlag = true;
+    hourContainerCreated = true;
 }
 
-function setDailyMaxMin(temps, date, forecastMap) {
+function setDailyMaxMin(temps, date, forecastMap) {    
     let dailyForecast = document.querySelector('.daily-forecast');
 
     let dailyContainer = document.createElement('div');
@@ -157,6 +158,18 @@ function setDailyMaxMin(temps, date, forecastMap) {
 }
 
 function setDailyForecast(response) {
+    if (dayContainerCreated) {
+        let dailyForecast = document.querySelector('.daily-forecast');
+        dailyForecast.remove();
+    }
+
+    let dailyForecast = document.createElement('div');
+    dailyForecast.classList.add('daily-forecast');
+
+    let dayContainer = document.querySelector('.day-container');
+    dayContainer.append(dailyForecast);
+    dayContainer.style.display = "flex";
+
     let forecastMap = new Map();
 
     for (let i = 0; i < DAYS; i++) {
@@ -170,8 +183,7 @@ function setDailyForecast(response) {
 
     forecastMap.forEach(setDailyMaxMin);
 
-    let dailyForecast = document.querySelector('.daily-forecast');
-    dailyForecast.style.display = "flex";
+    dayContainerCreated = true;
 }
 
 function updateDisplay() {

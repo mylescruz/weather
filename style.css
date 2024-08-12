@@ -177,7 +177,7 @@ body {
     padding-bottom: 0;
 }
 
-.daily-forecast {
+.day-container {
     display: none;
     flex-direction: column;
     background-color: white;
@@ -190,6 +190,12 @@ body {
     align-items: center;
     max-height: 10em;
     overflow-y: scroll;
+}
+
+.daily-forecast {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .day {
@@ -405,7 +411,7 @@ body {
     padding-bottom: 10px;
 }
 
-.daily-forecast {
+.day-container {
     display: none;
     flex-direction: column;
     background-color: white;
@@ -418,6 +424,12 @@ body {
     align-items: center;
     max-height: 100px;
     overflow-y: scroll;
+}
+
+.daily-forecast {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .day {
