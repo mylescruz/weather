@@ -42,8 +42,8 @@ function setLocalTime(response) {
 }
 
 function nightMode() {
-    let body = document.getElementsByTagName('body');
-    body.style = "background-color: rgb(22, 22, 53)";
+    let body = document.querySelector('body');
+    body.style.backgroundColor = "rgb(22, 22, 53)";
 
     let container = document.querySelector('.container');
     container.style.cssText = "background-color: rgb(22, 22, 53)";
