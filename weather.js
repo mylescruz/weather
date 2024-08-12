@@ -10,6 +10,7 @@ const DAWN_TIME = 7;
 const NIGHT_TIME = 19;
 let currentDate = '';
 let currentHour = 0;
+let hourFlag = false;
 import CONDITIONS from './assets/conditions.js';
 
 // Functions to display details
@@ -63,12 +64,20 @@ function setHighLow(response) {
 }
 
 function setHourlyForecast(response) {
+    if (hourFlag) {
+        let hourlyForecast = document.querySelector('.hourly-forecast');
+        hourlyForecast.remove();
+    }
+
     let todayTemps = response[0].hour;
     let tomorrowTemps = response[1].hour;
     let forecastTemps = todayTemps.concat(tomorrowTemps);
 
-    let hourlyForecast = document.querySelector('.hourly-forecast');
-    hourlyForecast.style.display = "flex";
+    let hourContainer = document.querySelector('.hour-container');
+    hourContainer.style.display = "flex";
+    
+    let hourlyForecast = document.createElement('div');
+    hourlyForecast.classList.add('hourly-forecast');
 
     for (let i = currentHour; i < (currentHour + 12); i++) {
         let hourlyContainer = document.createElement('div');
@@ -110,6 +119,10 @@ function setHourlyForecast(response) {
         
         hourlyForecast.appendChild(hourlyContainer);
     }
+
+    hourContainer.append(hourlyForecast);
+
+    hourFlag = true;
 }
 
 function setDailyMaxMin(temps, date, forecastMap) {

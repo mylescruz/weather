@@ -125,7 +125,7 @@ body {
     }
 }
 
-.hourly-forecast {
+.hour-container {
     display: none;
     flex-direction: row;
     background-color: white;
@@ -139,6 +139,11 @@ body {
     max-width: 75%;
     overflow-y: hidden;
     overflow-x: scroll;
+}
+
+.hourly-forecast {
+    display: flex;
+    flex-direction: row;
 }
 
 .hour {
@@ -348,7 +353,7 @@ body {
     }
 }
 
-.hourly-forecast {
+.hour-container {
     display: none;
     flex-direction: row;
     background-color: white;
@@ -362,6 +367,11 @@ body {
     max-width: 90%;
     overflow-y: hidden;
     overflow-x: scroll;
+}
+
+.hourly-forecast {
+    display: flex;
+    flex-direction: row;
 }
 
 .hour {
