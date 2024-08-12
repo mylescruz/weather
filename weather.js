@@ -5,7 +5,7 @@ const CURRENT = "/current.json";
 const FORECAST = "/forecast.json";
 const QUERY_PARAM = "q=";
 const DAYS_PARAM = "days=";
-const DAYS = 7;
+const DAYS = 3;
 const DAWN_TIME = 7;
 const NIGHT_TIME = 19;
 let currentDate = '';
@@ -42,6 +42,9 @@ function setLocalTime(response) {
 }
 
 function nightMode() {
+    let body = document.getElementsByTagName('body');
+    body.style = "background-color: rgb(22, 22, 53)";
+
     let container = document.querySelector('.container');
     container.style.cssText = "background-color: rgb(22, 22, 53)";
 
