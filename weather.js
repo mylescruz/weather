@@ -51,8 +51,8 @@ function nightMode() {
     let container = document.querySelector('.container');
     container.style.cssText = "background-color: rgb(22, 22, 53)";
 
-    let hourForecast = document.querySelector('.hourly-forecast');
-    let dayForecast = document.querySelector('.daily-forecast');
+    let hourForecast = document.querySelector('.hour-container');
+    let dayForecast = document.querySelector('.day-container');
     hourForecast.style.color = "rgb(22, 22, 53)";
     dayForecast.style.color = "rgb(22, 22, 53)";
 }
