@@ -208,7 +208,7 @@ body {
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    margin: 0.5em 0em;
+    margin: 0.15em 0em;
 }
 
 .forecast-date, .daily-temps {
@@ -336,7 +336,7 @@ body {
 }
 
 .day {
-    margin: 5px 0px;
+    margin: 3px 0px;
 }
 
 .forecast-date, .daily-temps {

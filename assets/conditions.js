@@ -188,6 +188,10 @@ const conditions = [
 		"image" : "assets/images/lightning_storm.png"
 	},
 	{
+		"condition" : "PATCHY LIGHT RAIN IN AREA WITH THUNDER",
+		"image" : "assets/images/lightning_storm.png"
+	},
+	{
 		"condition" : "MODERATE OR HEAVY RAIN WITH THUNDER",
 		"image" : "assets/images/lightning_storm.png"
 	},

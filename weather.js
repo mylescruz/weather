@@ -19,18 +19,17 @@ let dayContainerCreated = false;
 
 // Functions to display details
 function setCity(response) {
-    let cityName = document.getElementById('city');
-    cityName.innerHTML = response.toUpperCase();
+    document.getElementById('city').innerHTML = response.toUpperCase();
 }
 
 function setCurrentTemp(response) {
-    let tempF = document.getElementById('fahrenheit');
-    tempF.innerHTML = Math.round(parseFloat(response.temp_f))  + "º";
+    document.getElementById('fahrenheit').innerHTML = Math.round(parseFloat(response.temp_f))  + "º";
 
-    let conditionImage = document.querySelector('.background-condition');
+    const requestedCondition = response.condition.text.toUpperCase().trim();
 
-    let requestedCondition = response.condition.text.toUpperCase().trim();
+    // Show current weather condition in the background
     if (CONDITIONS.has(requestedCondition)) {
+        let conditionImage = document.querySelector('.background-condition');
         conditionImage.src = CONDITIONS.get(requestedCondition);
         conditionImage.style.display = "flex";
     }
@@ -46,38 +45,38 @@ function setLocalTime(response) {
     }
 }
 
+// Create a dark background when the searched time is at night
 function nightMode() {
-    let body = document.querySelector('body');
-    body.style.backgroundColor = "rgb(22, 22, 53)";
-
-    let container = document.querySelector('.container');
-    container.style.cssText = "background-color: rgb(22, 22, 53)";
-
-    let hourForecast = document.querySelector('.hour-container');
-    let dayForecast = document.querySelector('.day-container');
-    hourForecast.style.color = "rgb(22, 22, 53)";
-    dayForecast.style.color = "rgb(22, 22, 53)";
+    document.querySelector('body').style.backgroundColor = "rgb(22, 22, 53)";
+    document.querySelector('.container').style.cssText = "background-color: rgb(22, 22, 53)";
+    document.querySelector('.hour-container').style.color = "rgb(22, 22, 53)";
+    document.querySelector('.day-container').style.color = "rgb(22, 22, 53)";
 }
 
+// Set the searched city's high and low for the day
 function setHighLow(response) {
-    let today = document.querySelector('.today');
-    let max = Math.round(parseFloat(response.maxtemp_f));
-    let min = Math.round(parseFloat(response.mintemp_f));
+    const high = Math.round(parseFloat(response.maxtemp_f));
+    const low = Math.round(parseFloat(response.mintemp_f));
 
-    today.innerHTML = "H: " + max + "º | L: " + min + "º";
+    document.querySelector('.today').innerHTML = "H: " + high + "º | L: " + low + "º";
 }
 
 function setHourlyForecast(response) {
     if (hourContainerCreated) {
-        let hourlyForecast = document.querySelector('.hourly-forecast');
-        hourlyForecast.remove();
+        document.querySelector('.hourly-forecast').remove();
     }
 
-    let todayTemps = response[0].hour;
-    let tomorrowTemps = response[1].hour;
-    let forecastTemps = todayTemps.concat(tomorrowTemps);
+    // Create an array for the hourly forecast for the next 12 hours
+    const hourForecastTemps = new Array();
+    response.forEach(function(day, index, response) {
+        if (index !== response.length - 1) {
+            day.hour.forEach(item => {
+                hourForecastTemps.push(item);
+            });
+        }
+    });
 
-    let hourContainer = document.querySelector('.hour-container');
+    const hourContainer = document.querySelector('.hour-container');
     hourContainer.style.display = "flex";
 
     let hourlyForecast = document.createElement('div');
@@ -85,6 +84,7 @@ function setHourlyForecast(response) {
 
     const totalForecastHours = currentHour + 12;
 
+    // Display forecast for the next 12 hours
     for (let i = currentHour; i < totalForecastHours; i++) {
         let hourlyContainer = document.createElement('div');
         hourlyContainer.classList.add('hour');
@@ -114,13 +114,14 @@ function setHourlyForecast(response) {
         }
         hourlyContainer.append(hour);
 
-        let requestedCondition = forecastTemps[i].condition.text.toUpperCase().trim();
+        const requestedCondition = hourForecastTemps[i].condition.text.toUpperCase().trim();
+        
         if (CONDITIONS.has(requestedCondition)) {
             conditionImage.src = CONDITIONS.get(requestedCondition);
         }
         hourlyContainer.append(conditionImage);
 
-        temp.innerHTML = Math.round(parseFloat(forecastTemps[i].temp_f)) + "º";
+        temp.innerHTML = Math.round(parseFloat(hourForecastTemps[i].temp_f)) + "º";
         hourlyContainer.append(temp);
         
         hourlyForecast.appendChild(hourlyContainer);
@@ -131,8 +132,9 @@ function setHourlyForecast(response) {
     hourContainerCreated = true;
 }
 
-function setDailyMaxMin(temps, date, forecastMap) {    
-    let dailyForecast = document.querySelector('.daily-forecast');
+// Set the high, low and condition for the future forecasted days
+function setDailyMaxMin(temps, date) {    
+    const dailyForecast = document.querySelector('.daily-forecast');
 
     let dailyContainer = document.createElement('div');
     dailyContainer.classList.add('day');
@@ -150,7 +152,7 @@ function setDailyMaxMin(temps, date, forecastMap) {
     }
     dailyContainer.appendChild(dateContainer);
 
-    let requestedCondition = temps.condition.toUpperCase().trim();
+    const requestedCondition = temps.condition.toUpperCase().trim();
     if (CONDITIONS.has(requestedCondition)) {
         conditionImage.src = CONDITIONS.get(requestedCondition);
     }
@@ -162,36 +164,36 @@ function setDailyMaxMin(temps, date, forecastMap) {
     dailyForecast.appendChild(dailyContainer);
 }
 
+// Set details for the future forecasted days
 function setDailyForecast(response) {
     if (dayContainerCreated) {
-        let dailyForecast = document.querySelector('.daily-forecast');
-        dailyForecast.remove();
+        document.querySelector('.daily-forecast').remove();
     }
 
     let dailyForecast = document.createElement('div');
     dailyForecast.classList.add('daily-forecast');
 
-    let dayContainer = document.querySelector('.day-container');
+    const dayContainer = document.querySelector('.day-container');
     dayContainer.append(dailyForecast);
     dayContainer.style.display = "flex";
 
-    let forecastMap = new Map();
+    const dayForecastMap = new Map();
     response.forEach(item => {
         let date = new Date(item.date);
-        forecastMap.set(date.toUTCString(), {
+        dayForecastMap.set(date.toUTCString(), {
             max: item.day.maxtemp_f, 
             min: item.day.mintemp_f,
             condition: item.day.condition.text
         });
     });
 
-    forecastMap.forEach(setDailyMaxMin);
+    dayForecastMap.forEach(setDailyMaxMin);
 
     dayContainerCreated = true;
 }
 
 function updateDisplay() {
-    let city = document.getElementById('search');
+    const city = document.getElementById('search');
     
     city.value = "";
     city.blur();
@@ -212,23 +214,16 @@ function updateDisplay() {
         position: absolute;
     `;
 
-    let body = document.querySelector('.weather-body');
-    body.style.display = "flex";
-
-    let welcome = document.querySelector('.welcome');
-    welcome.style.display = "none";
-
-    let error = document.querySelector('.error');
-    error.style.display = "none";
+    document.querySelector('.weather-body').style.display = "flex";
+    document.querySelector('.welcome').style.display = "none";
+    document.querySelector('.error').style.display = "none";
 
     searched = true;
 }
 
 function displaySearch() {
-    let city = document.getElementById('search');
-
     if (searched) {
-        city.style.cssText = `
+        document.getElementById('search').style.cssText = `
             width: 225px;
             text-align: left;
             -webkit-transition: transform 1.5s;
@@ -249,11 +244,8 @@ function displaySearch() {
 }
 
 function invalidRequest() {
-    let body = document.querySelector('.weather-body');
-    body.style.display = "none";
-    
-    let error = document.querySelector('.error');
-    error.style.display = "flex";
+    document.querySelector('.weather-body').style.display = "none";
+    document.querySelector('.error').style.display = "flex";
 }
 
 // Function to get city details from the Weather API
