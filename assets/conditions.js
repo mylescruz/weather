@@ -1,4 +1,4 @@
-let conditions = [
+const conditions = [
 	{
 		"condition" : "SUNNY",
 		"image" : "assets/images/sunny.png"
@@ -203,8 +203,8 @@ let conditions = [
 
 let conditionsMap = new Map();
 
-for (let i = 0; i < conditions.length; i++) {
-	conditionsMap.set(conditions[i].condition, conditions[i].image);
-}
+conditions.forEach(item => {
+	conditionsMap.set(item.condition, item.image);
+});
 
 export default conditionsMap;

@@ -1,6 +1,9 @@
+import CONDITIONS from './assets/conditions.js';
+import KEY from './assets/api.js';
+
 // Global Variables
 const URL = "https://api.weatherapi.com/v1";
-const API_KEY = "key=c92183db87384d8d806184544242907";
+const API_KEY = "key="+KEY;
 const CURRENT = "/current.json";
 const FORECAST = "/forecast.json";
 const QUERY_PARAM = "q=";
@@ -13,7 +16,6 @@ let currentHour = 0;
 let searched = false;
 let hourContainerCreated = false;
 let dayContainerCreated = false;
-import CONDITIONS from './assets/conditions.js';
 
 // Functions to display details
 function setCity(response) {
@@ -81,7 +83,9 @@ function setHourlyForecast(response) {
     let hourlyForecast = document.createElement('div');
     hourlyForecast.classList.add('hourly-forecast');
 
-    for (let i = currentHour; i < (currentHour + 12); i++) {
+    const totalForecastHours = currentHour + 12;
+
+    for (let i = currentHour; i < totalForecastHours; i++) {
         let hourlyContainer = document.createElement('div');
         hourlyContainer.classList.add('hour');
         let hour = document.createElement('p');
@@ -172,15 +176,14 @@ function setDailyForecast(response) {
     dayContainer.style.display = "flex";
 
     let forecastMap = new Map();
-
-    for (let i = 0; i < DAYS; i++) {
-        let date = new Date(response[i].date);
+    response.forEach(item => {
+        let date = new Date(item.date);
         forecastMap.set(date.toUTCString(), {
-            max: response[i].day.maxtemp_f, 
-            min: response[i].day.mintemp_f,
-            condition: response[i].day.condition.text
+            max: item.day.maxtemp_f, 
+            min: item.day.mintemp_f,
+            condition: item.day.condition.text
         });
-    }
+    });
 
     forecastMap.forEach(setDailyMaxMin);
 
