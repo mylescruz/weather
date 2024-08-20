@@ -11,21 +11,37 @@ const DAYS_PARAM = "days=";
 const DAYS = 3;
 const DAWN_TIME = 7;
 const NIGHT_TIME = 19;
+const SCREEN_WIDTH = window.matchMedia("(max-width: 768px)");
+const PRIMARY_BLUE_MORNING = "rgb(70, 153, 216)";
+const SECONDARY_BLUE_MORNING = "rgb(209, 233, 244)";
+const PRIMARY_BLUE_NIGHT = "rgb(22, 22, 53)";
+const SECONDARY_BLUE_NIGHT = "rgb(77, 77, 107)";
 let currentDate = '';
 let currentHour = 0;
 let searched = false;
 let hourContainerCreated = false;
 let dayContainerCreated = false;
 
-// Functions to display details
-function setCity(response) {
-    document.getElementById('city').innerHTML = response.toUpperCase();
+// Display current city details
+function setCurrentCity(location) {
+    document.getElementById('city').innerHTML = location.name.toUpperCase();
+
+    currentDate = new Date(location.localtime);
+    console.log(currentDate);
+    currentHour = currentDate.getHours();
+
+    if (currentHour < DAWN_TIME || currentHour > NIGHT_TIME) {
+        nightMode();
+    } else {
+        dayMode();
+    }
 }
 
-function setCurrentTemp(response) {
-    document.getElementById('fahrenheit').innerHTML = Math.round(parseFloat(response.temp_f))  + "º";
+// Set current city's temperature
+function setCurrentTemp(current) {
+    document.getElementById('fahrenheit').innerHTML = Math.round(parseFloat(current.temp_f))  + "º";
 
-    const requestedCondition = response.condition.text.toUpperCase().trim();
+    const requestedCondition = current.condition.text.toUpperCase().trim();
 
     // Show current weather condition in the background
     if (CONDITIONS.has(requestedCondition)) {
@@ -35,41 +51,62 @@ function setCurrentTemp(response) {
     }
 }
 
-function setLocalTime(response) {
-    currentDate = new Date(response);
-    console.log(currentDate);
-    currentHour = currentDate.getHours();
+// Change app style during day time
+function dayMode() {
+    document.querySelector('body').style.backgroundColor = SECONDARY_BLUE_MORNING;
+    document.querySelector('.container').style.cssText = "background-color: " + PRIMARY_BLUE_MORNING;
+    document.querySelector('.hour-container').style.color = PRIMARY_BLUE_MORNING;
+    document.querySelector('.day-container').style.color = PRIMARY_BLUE_MORNING;
+}
 
+// Change app style during night time
+function nightMode() {
+    changeBackground(SCREEN_WIDTH);
+
+    document.querySelector('.container').style.cssText = "background-color: " + PRIMARY_BLUE_NIGHT;
+    document.querySelector('.hour-container').style.color = PRIMARY_BLUE_NIGHT;
+    document.querySelector('.day-container').style.color = PRIMARY_BLUE_NIGHT;
+
+    SCREEN_WIDTH.addEventListener('change', () => {
+        changeBackground(SCREEN_WIDTH);
+    });  
+}
+
+// Change background when the screen adjusts
+function changeBackground(screen) {
     if (currentHour < DAWN_TIME || currentHour > NIGHT_TIME) {
-        nightMode();
+        if (screen.matches) { 
+            document.querySelector('body').style.backgroundColor = PRIMARY_BLUE_NIGHT;
+        } else {
+            document.querySelector('body').style.backgroundColor = SECONDARY_BLUE_NIGHT;
+        }
+    } else {
+        if (screen.matches) { 
+            document.querySelector('body').style.backgroundColor = PRIMARY_BLUE_MORNING;
+        } else {
+            document.querySelector('body').style.backgroundColor = SECONDARY_BLUE_MORNING;
+        }
     }
 }
 
-// Create a dark background when the searched time is at night
-function nightMode() {
-    document.querySelector('body').style.backgroundColor = "rgb(77, 77, 107)";
-    document.querySelector('.container').style.cssText = "background-color: rgb(22, 22, 53)";
-    document.querySelector('.hour-container').style.color = "rgb(22, 22, 53)";
-    document.querySelector('.day-container').style.color = "rgb(22, 22, 53)";
-}
-
 // Set the searched city's high and low for the day
-function setHighLow(response) {
-    const high = Math.round(parseFloat(response.maxtemp_f));
-    const low = Math.round(parseFloat(response.mintemp_f));
+function setHighLow(day) {
+    const high = Math.round(parseFloat(day.maxtemp_f));
+    const low = Math.round(parseFloat(day.mintemp_f));
 
     document.querySelector('.today').innerHTML = "H: " + high + "º | L: " + low + "º";
 }
 
-function setHourlyForecast(response) {
+// Display the forecast temperatures for the upcoming hours of the day
+function setHourlyForecast(forecastDays) {
     if (hourContainerCreated) {
         document.querySelector('.hourly-forecast').remove();
     }
 
     // Create an array for the hourly forecast for the next 12 hours
     const hourForecastTemps = new Array();
-    response.forEach(function(day, index, response) {
-        if (index !== response.length - 1) {
+    forecastDays.forEach(function(day, index, forecastDays) {
+        if (index !== forecastDays.length - 1) {
             day.hour.forEach(item => {
                 hourForecastTemps.push(item);
             });
@@ -164,8 +201,8 @@ function setDailyMaxMin(temps, date) {
     dailyForecast.appendChild(dailyContainer);
 }
 
-// Set details for the future forecasted days
-function setDailyForecast(response) {
+// Display the forecast temperatures for the upcoming days of the week
+function setDailyForecast(forecastDays) {
     if (dayContainerCreated) {
         document.querySelector('.daily-forecast').remove();
     }
@@ -178,7 +215,7 @@ function setDailyForecast(response) {
     dayContainer.style.display = "flex";
 
     const dayForecastMap = new Map();
-    response.forEach(item => {
+    forecastDays.forEach(item => {
         let date = new Date(item.date);
         dayForecastMap.set(date.toUTCString(), {
             max: item.day.maxtemp_f, 
@@ -192,7 +229,8 @@ function setDailyForecast(response) {
     dayContainerCreated = true;
 }
 
-function updateDisplay() {
+// Shrink search bar after search completed
+function updateSearchBar() {
     const searchBar = document.getElementById('search');
     
     searchBar.value = "";
@@ -221,6 +259,7 @@ function updateDisplay() {
     searched = true;
 }
 
+// Increase width of search bar when a user wants to search a new city
 function displaySearch() {
     if (searched) {
         document.getElementById('search').style.cssText = `
@@ -243,6 +282,7 @@ function displaySearch() {
     searched = false;
 }
 
+// Display error message
 function invalidRequest() {
     document.querySelector('.weather-body').style.display = "none";
     document.querySelector('.error').style.display = "flex";
@@ -259,14 +299,13 @@ function getCity() {
 
             console.log(response.location.name);
             console.log(response.current.temp_f + "ºF");
-
-            setCity(response.location.name);
-            setLocalTime(response.location.localtime);
+            
+            setCurrentCity(response.location);
             setCurrentTemp(response.current);
             setHighLow(response.forecast.forecastday[0].day);
             setHourlyForecast(response.forecast.forecastday);
             setDailyForecast(response.forecast.forecastday);
-            updateDisplay();
+            updateSearchBar();
         }
         if (this.readyState === XMLHttpRequest.DONE && this.status !== 200) {
             invalidRequest();
