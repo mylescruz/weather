@@ -30,11 +30,7 @@ function setCurrentCity(location) {
     console.log(currentDate);
     currentHour = currentDate.getHours();
 
-    if (currentHour < DAWN_TIME || currentHour > NIGHT_TIME) {
-        nightMode();
-    } else {
-        dayMode();
-    }
+    timeDisplay();
 }
 
 // Set current city's temperature
@@ -51,21 +47,9 @@ function setCurrentTemp(current) {
     }
 }
 
-// Change app style during day time
-function dayMode() {
-    document.querySelector('body').style.backgroundColor = SECONDARY_BLUE_MORNING;
-    document.querySelector('.container').style.cssText = "background-color: " + PRIMARY_BLUE_MORNING;
-    document.querySelector('.hour-container').style.color = PRIMARY_BLUE_MORNING;
-    document.querySelector('.day-container').style.color = PRIMARY_BLUE_MORNING;
-}
-
-// Change app style during night time
-function nightMode() {
+// Change app style depending on the time of day
+function timeDisplay() {
     changeBackground(SCREEN_WIDTH);
-
-    document.querySelector('.container').style.cssText = "background-color: " + PRIMARY_BLUE_NIGHT;
-    document.querySelector('.hour-container').style.color = PRIMARY_BLUE_NIGHT;
-    document.querySelector('.day-container').style.color = PRIMARY_BLUE_NIGHT;
 
     SCREEN_WIDTH.addEventListener('change', () => {
         changeBackground(SCREEN_WIDTH);
@@ -75,12 +59,20 @@ function nightMode() {
 // Change background when the screen adjusts
 function changeBackground(screen) {
     if (currentHour < DAWN_TIME || currentHour > NIGHT_TIME) {
+        document.querySelector('.container').style.backgroundColor = PRIMARY_BLUE_NIGHT;
+        document.querySelector('.hour-container').style.color = PRIMARY_BLUE_NIGHT;
+        document.querySelector('.day-container').style.color = PRIMARY_BLUE_NIGHT;
+
         if (screen.matches) { 
             document.querySelector('body').style.backgroundColor = PRIMARY_BLUE_NIGHT;
         } else {
             document.querySelector('body').style.backgroundColor = SECONDARY_BLUE_NIGHT;
         }
     } else {
+        document.querySelector('.container').style.backgroundColor = PRIMARY_BLUE_MORNING;
+        document.querySelector('.hour-container').style.color = PRIMARY_BLUE_MORNING;
+        document.querySelector('.day-container').style.color = PRIMARY_BLUE_MORNING;
+
         if (screen.matches) { 
             document.querySelector('body').style.backgroundColor = PRIMARY_BLUE_MORNING;
         } else {
