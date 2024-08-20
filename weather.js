@@ -47,7 +47,7 @@ function setLocalTime(response) {
 
 // Create a dark background when the searched time is at night
 function nightMode() {
-    document.querySelector('body').style.backgroundColor = "rgb(22, 22, 53)";
+    document.querySelector('body').style.backgroundColor = "rgb(77, 77, 107)";
     document.querySelector('.container').style.cssText = "background-color: rgb(22, 22, 53)";
     document.querySelector('.hour-container').style.color = "rgb(22, 22, 53)";
     document.querySelector('.day-container').style.color = "rgb(22, 22, 53)";
@@ -193,12 +193,12 @@ function setDailyForecast(response) {
 }
 
 function updateDisplay() {
-    const city = document.getElementById('search');
+    const searchBar = document.getElementById('search');
     
-    city.value = "";
-    city.blur();
-    city.placeholder = '\u{1F50D}';
-    city.style.cssText = `
+    searchBar.value = "";
+    searchBar.blur();
+    searchBar.placeholder = '\u{1F50D}';
+    searchBar.style.cssText = `
         width: 30px;
         text-align: center;
         -webkit-transition: transform 1.5s;
@@ -206,11 +206,11 @@ function updateDisplay() {
         -o-transition: transform 1.5s;
         -ms-transition: transform 1.5s;
         transition: transform 1.5s;
-        -webkit-transform: translateX(125px);
-        -moz-transform: translateX(125px);
-        -o-transform: translateX(125px);
-        -ms-transform: translateX(125px);
-        transform: translateX(125px);
+        -webkit-transform: translateX(150px);
+        -moz-transform: translateX(150px);
+        -o-transform: translateX(150px);
+        -ms-transform: translateX(150px);
+        transform: translateX(150px);
         position: absolute;
     `;
 
@@ -224,18 +224,18 @@ function updateDisplay() {
 function displaySearch() {
     if (searched) {
         document.getElementById('search').style.cssText = `
-            width: 225px;
+            width: 75%;
             text-align: left;
             -webkit-transition: transform 1.5s;
             -moz-transition: transform 1.5s;
             -o-transition: transform 1.5s;
             -ms-transition: transform 1.5s;
             transition: transform 1.5s;
-            -webkit-transform: translateX(0px);
-            -moz-transform: translateX(0px);
-            -o-transform: translateX(0px);
-            -ms-transform: translateX(0px);
-            transform: translateX(0px);
+            -webkit-transform: translateX(0%);
+            -moz-transform: translateX(0%);
+            -o-transform: translateX(0%);
+            -ms-transform: translateX(0%);
+            transform: translateX(0%);
             position: relative;
         `;
     }

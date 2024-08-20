@@ -3,9 +3,12 @@
 }
 
 :root {
-    --color-background-morning: rgb(70, 153, 216);
+    --primary-blue-morning: rgb(70, 153, 216);
     --color-white-shadow: rgba(255, 255, 255, 0.8);
     --color-black-shadow: rgba(0, 0, 0, 0.8);
+    --primary-white: rgb(255, 255, 255);
+    --background-blue: rgb(209, 233, 244);
+    --background-blue-night: rgb(77, 77, 107);
 }
 
 html, body {
@@ -18,7 +21,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-background-morning);
+    background-color: var(--primary-blue-morning);
 }
 
 .container {
@@ -44,7 +47,7 @@ body {
     width: 80%;
     height: 400px;
     background-color: white;
-    color: var(--color-background-morning);
+    color: var(--primary-blue-morning);
     margin: 50px 10px 0px;
     padding: 10px 10px;
     border-radius: 25px;
@@ -133,7 +136,7 @@ body {
     display: none;
     flex-direction: row;
     background-color: white;
-    color: var(--color-background-morning);
+    color: var(--primary-blue-morning);
     height: 25%;
     width: 80%;
     margin: 1em 0em;
@@ -185,7 +188,7 @@ body {
     display: none;
     flex-direction: column;
     background-color: white;
-    color: var(--color-background-morning);
+    color: var(--primary-blue-morning);
     height: 33%;
     width: 75%;
     margin: 1em 0em;
@@ -236,7 +239,7 @@ body {
     height: 200px;
     background-color: white;
     font-size: 9vw;
-    color: var(--color-background-morning);
+    color: var(--primary-blue-morning);
     margin: 50px 10px 0px;
     padding: 50px 10px 0px;
     border-radius: 25px;
@@ -247,35 +250,37 @@ body {
 @media screen and (min-width: 768px) {
 body {
     margin-top: 25px;
-    background-color: white;
+    background-color: var(--background-blue);
 }
 
 .container {
-    width: 300px;
-    height: 400px;
+    width: 500px;
+    height: 550px;
     padding: 10px;
-    background-color: var(--color-background-morning);
     border-radius: 35px;
     box-shadow: 2px 2px 5px var(--color-black-shadow);
+    background-color: var(--primary-blue-morning);
+    color: var(--primary-white);
 }
 
 .welcome {
-    width: 225px;
-    height: 200px; 
+    width: 75%;
+    height: 300px;
 }
 
 .title {
-    font-size: 32px;
+    font-size: 3vw;
 }
 
 .instructions {
-    font-size: 20px;
+    font-size: 2vw;
+    margin: 0em 1em;
 }
 
 #search {
     margin: 0px 20px;
     padding: 5px 10px;
-    width: 225px;
+    width: 75%;
     z-index: 5;
     font-size: 1em;
 }
@@ -286,66 +291,68 @@ body {
 }
 
 #city {
-    font-size: 25px;
+    font-size: 3vw;
 }
 
 .temperature {
     margin: 5px 0px 5px;
-    font-size: 50px;
+    font-size: 5vw;
 }
 
 .today {
-    font-size: 20px;
+    font-size: 1.75vw;
 }
 
 .background-condition {
     width: 150px;
     height: 150px;
-    top: 8%;
+    top: 15%;
 }
 
 .hour-container {
-    height: 60px;
+    height: 100px;
     margin: 20px 10px 0px;
-    max-width: 90%;
+    padding: 10px 5px;
+    max-width: 75%;
 }
 
 .forecast-hour, .hourly-temp {
-    margin: 5px;
+    margin: 5px 10px;
 }
 
 .forecast-hour {
-    font-size: 8px;
+    font-size: 1vw;
     padding-top: 10px;
 }
 
 .hourly-condition {
-    height: 25px;
-    width: 25px;
+    height: 50px;
+    width: 50px;
 }
 
 .hourly-temp {
-    font-size: 12px;
+    font-size: 1vw;
     padding-bottom: 10px;
 }
 
 .day-container {
-    height: 100px;
-    width: 80%;
-    margin: 10px 10px;
+    height: 175px;
+    width: 75%;
+    margin: 15px 10px 0px;
+    padding: 0px 5px;
 }
 
 .day {
-    margin: 3px 0px;
+    margin: 0px 0px;
 }
 
 .forecast-date, .daily-temps {
-    font-size: 15px;
+    font-size: 1.25vw;
 }
 
 .forecast-condition {
-    height: 25px;
-    width: 25px;
+    height: 50px;
+    width: 50px;
 }
 
 ::-webkit-scrollbar {
@@ -353,8 +360,8 @@ body {
 }
 
 .error {
-    width: 225px;
-    height: 200px;
-    font-size: 25px;
+    width: 75%;
+    height: 300px;
+    font-size: 2vw;
 }
 }
