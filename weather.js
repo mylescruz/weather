@@ -280,34 +280,39 @@ function invalidRequest() {
     document.querySelector('.error').style.display = "flex";
 }
 
-// Function to get city details from the Weather API
+// Set app details from API
+function setCity(data) {
+    console.log(data.location.name);
+    console.log(data.current.temp_f + "ºF");
+    
+    setCurrentCity(data.location);
+    setCurrentTemp(data.current);
+    setHighLow(data.forecast.forecastday[0].day);
+    setHourlyForecast(data.forecast.forecastday);
+    setDailyForecast(data.forecast.forecastday);
+    updateSearchBar();
+}
+
+// Get city details from the Weather API
 function getCity() {
-    let city = document.getElementById('search').value;
+    const city = document.getElementById('search').value;
 
-    let req = new XMLHttpRequest();
-    req.onreadystatechange = function() {
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            let response = JSON.parse(this.response);
-
-            console.log(response.location.name);
-            console.log(response.current.temp_f + "ºF");
-            
-            setCurrentCity(response.location);
-            setCurrentTemp(response.current);
-            setHighLow(response.forecast.forecastday[0].day);
-            setHourlyForecast(response.forecast.forecastday);
-            setDailyForecast(response.forecast.forecastday);
-            updateSearchBar();
-        }
-        if (this.readyState === XMLHttpRequest.DONE && this.status !== 200) {
-            invalidRequest();
-        }
-    };
-
-    let apiCall = URL+FORECAST+"?"+API_KEY+"&"+QUERY_PARAM+city+"&"+DAYS_PARAM+DAYS;
+    const apiCall = URL+FORECAST+"?"+API_KEY+"&"+QUERY_PARAM+city+"&"+DAYS_PARAM+DAYS;
     console.log(apiCall);
-    req.open("GET", apiCall);
-    req.send();
+
+    fetch(apiCall)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Could not connect to Weather API');
+            }
+            return response.json();
+        })
+        .then(data => {
+            setCity(data);
+        })
+        .catch(error => {
+            invalidRequest();
+        });
 }
 
 // Handle app events
