@@ -55,12 +55,12 @@ body {
 }
 
 .title {
-    font-size: 50px;
+    font-size: 2.5em;
 }
 
 .instructions {
-    font-size: 30px;
-    padding: 0px 10px;
+    font-size: 1.5em;
+    padding: 0em 2em;
 }
 
 .header {
@@ -93,20 +93,20 @@ body {
 #city {
     padding: 0;
     margin: 0;
-    font-size: 10vw;
+    font-size: 3em;
 }
 
 .temperature {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     padding: 0;
     margin: 0.25em 0em;
-    font-size: 15vw;
+    font-size: 4em;
 }
 
 .today {
     padding: 0;
     margin: 0;
-    font-size: 7vw;
+    font-size: 2em;
     text-align: center;
 }
 
@@ -167,7 +167,7 @@ body {
 }
 
 .forecast-hour {
-    font-size: 4vw;
+    font-size: 1em;
     font-weight: bold;
     padding-top: 0;
 }
@@ -180,7 +180,7 @@ body {
 }
 
 .hourly-temp {
-    font-size: 5vw;
+    font-size: 1.25em;
     padding-bottom: 0;
 }
 
@@ -219,7 +219,7 @@ body {
     padding: 0;
     margin: 0;
     text-align: center;
-    font-size: 5vw;
+    font-size: 1.25em;
 }
 
 .forecast-condition {
@@ -238,7 +238,7 @@ body {
     width: 80%;
     height: 200px;
     background-color: white;
-    font-size: 9vw;
+    font-size: 2.5em;
     color: var(--primary-blue-morning);
     margin: 50px 10px 0px;
     padding: 50px 10px 0px;
@@ -269,12 +269,12 @@ body {
 }
 
 .title {
-    font-size: 3vw;
+    font-size: 3em;
 }
 
 .instructions {
-    font-size: 2vw;
-    margin: 0em 1em;
+    font-size: 2em;
+    padding: 0em 1em;
 }
 
 #search {
@@ -291,16 +291,16 @@ body {
 }
 
 #city {
-    font-size: 3vw;
+    font-size: 3em;
 }
 
 .temperature {
     margin: 5px 0px 5px;
-    font-size: 5vw;
+    font-size: 4em;
 }
 
 .today {
-    font-size: 1.75vw;
+    font-size: 1.75em;
 }
 
 .background-condition {
@@ -321,7 +321,7 @@ body {
 }
 
 .forecast-hour {
-    font-size: 1vw;
+    font-size: 1em;
     padding-top: 10px;
 }
 
@@ -331,7 +331,7 @@ body {
 }
 
 .hourly-temp {
-    font-size: 1vw;
+    font-size: 1.25em;
     padding-bottom: 10px;
 }
 
@@ -347,7 +347,7 @@ body {
 }
 
 .forecast-date, .daily-temps {
-    font-size: 1.25vw;
+    font-size: 1.25em;
 }
 
 .forecast-condition {
@@ -362,6 +362,29 @@ body {
 .error {
     width: 75%;
     height: 300px;
-    font-size: 2vw;
+    font-size: 2em;
+}
+}
+
+@media screen and (min-width: 1650px) {
+.title {
+    font-size: 3em;
+}
+
+.instructions {
+    font-size: 2em;
+}
+
+#city {
+    font-size: 3em;
+}
+
+.temperature {
+    margin: 0.05em 0px 0.05em;
+    font-size: 5em;
+}
+
+.today {
+    font-size: 2em;
 }
 }

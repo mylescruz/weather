@@ -44,6 +44,10 @@ const conditions = [
 		"image" : "assets/images/lightning.png"
 	},
 	{
+		"condition" : "THUNDERY OUTBREAKS IN NEARBY",
+		"image" : "assets/images/lightning.png"
+	},
+	{
 		"condition" : "BLOWING SNOW",
 		"image" : "assets/images/snow.png"
 	},
